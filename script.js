@@ -41,8 +41,6 @@ function cadastrarDespesa() {
 	valor.replace(",", ".")
 
 	if (ano.value == "" || mes.value == "" || dia.value == "" || tipo.value == "" || descricao.value == "" || valor == "") {
-		alert("Estes campos devem conter informações")
-
 		//verifica qual input esta vazio
 		document.querySelectorAll("input").forEach(input => {
 			//o input que estiver vazio vai cair aq
@@ -65,6 +63,8 @@ function cadastrarDespesa() {
 				})
 			}
 		})
+
+		alert("Estes campos devem conter informações")
 	} else {
 		let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, valor)
 		gravarDespesa(despesa)

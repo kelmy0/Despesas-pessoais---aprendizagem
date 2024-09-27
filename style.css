@@ -54,18 +54,9 @@
 }
 
 .rodape {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
 	position: absolute;
 	bottom: 0%;
 	height: 3em;
 	font-size: 1.3em;
 	width: 100%;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
 }
