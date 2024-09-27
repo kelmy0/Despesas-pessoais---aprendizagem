@@ -1,0 +1,1 @@
+esses arquivos servem apenas para agilizar a criação inicial de aplicações web

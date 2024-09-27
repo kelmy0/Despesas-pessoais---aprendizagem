@@ -1,0 +1,54 @@
+.link-light-animation {
+	color: white;
+	border: 1px solid white;
+	border-radius: 5px;
+	padding: 0.5em;
+	text-align: center;
+	font-weight: bold;
+}
+
+.link-light-animation:hover {
+	color: black;
+	border: 1px solid white;
+	background-color: white;
+	border-radius: 5px;
+	padding: 0.5em;
+	text-align: center;
+}
+
+.input-vazio {
+	color: #fff;
+	background-color: rgba(255, 57, 57, 0.534);
+}
+
+.input-vazio:-webkit-input-placeholder {
+	color: #fff;
+}
+
+.input-vazio::-webkit-input-placeholder {
+	color: #fff;
+}
+
+.input-vazio:-moz-input-placeholder {
+	color: #fff;
+}
+
+.input-vazio::-moz-input-placeholder {
+	color: #fff;
+}
+
+.input-vazio:-o-input-placeholder {
+	color: #fff;
+}
+
+.input-vazio::-o-input-placeholder {
+	color: #fff;
+}
+
+.input-vazio:-ms-input-placeholder {
+	color: #fff;
+}
+
+.input-vazio::-ms-input-placeholder {
+	color: #fff;
+}

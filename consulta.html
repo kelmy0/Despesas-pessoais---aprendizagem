@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="Normalize.css" />
+		<link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="style.css" />
+		<script src="bootstrap-5.3.3-dist/js/pooper.min.js"></script>
+		<script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+		<script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
+		<!-- Font Awesome -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+			integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+		<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+		<!--[if lt IE 9]>
+			<script src="flexbility.js"></script>
+		<![endif]-->
+		<script src="script.js"></script>
+
+		<link rel="shortcut icon" href="images/logo.png" />
+		<title>Orçamento pessoal - Consulta</title>
+	</head>
+	<body>
+		<header>
+			<!--off canvas navbar responsive-->
+			<nav class="navbar bg-primary navbar-expand-md px-md-5 mb-5 navbar-dark">
+				<!--Logo do site na navbar-->
+				<div class="container-fluid">
+					<a href="index.html" class="navbar-brand"><img src="images/logo.png" /></a>
+
+					<!--botao do toggle navbar-->
+					<button
+						class="btn d-md-none btn-outline-light btn-lg"
+						type="button"
+						data-bs-toggle="offcanvas"
+						data-bs-target="#offcanvasRight"
+						aria-controls="offcanvasRight">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<!--offcanvas menu-->
+					<div
+						class="offcanvas-md offcanvas-end bg-primary"
+						tabindex="-1"
+						id="offcanvasRight"
+						aria-labelledby="offcanvasRightLabel">
+						<div class="offcanvas-header">
+							<!--botao fechar-->
+							<button
+								type="button"
+								class="btn btn-close btn-close-white btn-lg btn-light"
+								data-bs-dismiss="offcanvas"
+								data-bs-target="#offcanvasRight"
+								aria-label="close"></button>
+						</div>
+						<!--conteudo-->
+						<div class="offcanvas-body">
+							<ul class="navbar-nav me-auto">
+								<li class="nav-item mb-2 mb-md-0 mx-md-2">
+									<a href="index.html" class="nav-link link-light-animation">Cadastro</a>
+								</li>
+								<li class="nav-item mb-2 mb-md-0">
+									<a href="consulta.html" class="nav-link link-light-animation">Consulta</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<section>
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col">
+						<h1 class="display-4">Consulta de despesas</h1>
+					</div>
+				</div>
+				<div class="row mb-md-2">
+					<div class="col-md-2">
+						<input type="number" min="1970" max="2100" class="form-control border-dark" placeholder="Ano" />
+					</div>
+					<div class="col-md-2">
+						<select class="form-control border-dark" id="mes">
+							<option value="" selected disabled>Mês</option>
+							<option value="1">Janeiro</option>
+							<option value="2">Fevereiro</option>
+							<option value="3">Março</option>
+							<option value="4">Abril</option>
+							<option value="5">Maio</option>
+							<option value="6">Junho</option>
+							<option value="7">Julho</option>
+							<option value="8">Agosto</option>
+							<option value="9">Setembro</option>
+							<option value="10">Outubro</option>
+							<option value="11">Novembro</option>
+							<option value="12">Dezembro</option>
+						</select>
+					</div>
+					<div class="col-md-2">
+						<input type="number" name="dia" id="dia" placeholder="dia" class="form-control border-dark" min="1" max="31" />
+					</div>
+					<div class="col-md-6">
+						<select id="tipo" class="form-control border-dark">
+							<option value="" selected disabled>Tipo</option>
+							<option value="1">Alimentação</option>
+							<option value="2">Educação</option>
+							<option value="3">Lazer</option>
+							<option value="4">Saúde</option>
+							<option value="5">Transporte</option>
+							<option value="6">Outro</option>
+						</select>
+					</div>
+				</div>
+				<div class="row mb-5">
+					<div class="col-md-8">
+						<input type="text" id="descricao" class="form-control border-dark" placeholder="Descrição" />
+					</div>
+					<div class="col-md-2">
+						<input type="valor" id="valor" class="form-control border-dark" placeholder="Valor" />
+					</div>
+					<div class="col-md-2 d-flex justify-content-end">
+						<button type="button" class="btn btn-primary">
+							<i class="fa fa-search" title="pesquisar"></i>
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Data</th>
+									<th>Tipo</th>
+									<th>Descrição</th>
+									<th>Valor</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
