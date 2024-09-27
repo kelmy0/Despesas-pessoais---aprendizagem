@@ -1,3 +1,22 @@
+@media (max-width: 767.98px) {
+	.rodape {
+		margin-top: 2em;
+		height: 3em;
+		font-size: 1.3em;
+		width: 100%;
+	}
+}
+
+@media (min-width: 768px) {
+	.rodape {
+		position: absolute;
+		bottom: 0%;
+		height: 3em;
+		font-size: 1.3em;
+		width: 100%;
+	}
+}
+
 .link-light-animation {
 	color: white;
 	border: 1px solid white;
@@ -51,11 +70,4 @@
 
 .input-vazio::-ms-input-placeholder {
 	color: #fff;
-}
-
-.rodape {
-	margin-top: 2em;
-	height: 3em;
-	font-size: 1.3em;
-	width: 100%;
 }

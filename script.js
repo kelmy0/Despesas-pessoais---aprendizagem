@@ -64,7 +64,7 @@ function cadastrarDespesa() {
 			}
 		})
 
-		alert("Estes campos devem conter informações")
+		window.alert("Estes campos devem conter informações")
 	} else {
 		let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, valor)
 		gravarDespesa(despesa)
