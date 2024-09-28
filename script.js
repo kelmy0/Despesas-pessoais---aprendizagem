@@ -77,16 +77,22 @@ function cadastrarDespesa() {
 	let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, valor)
 	//validar dados
 	if (despesa.validarDados() == true) {
-		bd.gravarDespesa(despesa)
-		exibirMsgEscondida("msg-escondida", "bg-success", "Despesa adicionada com sucesso")
+		try {
+			bd.gravarDespesa(despesa)
+			exibirMsgEscondida("msg-escondida", "bg-success", "Despesa adicionada com sucesso")
 
-		document.querySelectorAll("input").forEach(input => {
-			if (input.id != "dia") {
-				input.value = ""
+			document.querySelectorAll("input").forEach(input => {
+				if (input.id != "dia") {
+					input.value = ""
+				}
+			})
+
+			document.getElementById("tipo").value = ""
+		} catch (erro) {
+			if (erro.name === "SecurityError" && erro.message.includes("localStorage") && erro.message.includes("Access is denied")) {
+				exibirMsgEscondida("msg-escondida", "bg-danger", "Erro ao salvar. Desbloqueie os cookies")
 			}
-		})
-
-		document.getElementById("tipo").value = ""
+		}
 	} else {
 		//verifica qual input esta vazio
 		document.querySelectorAll("input").forEach(input => {
