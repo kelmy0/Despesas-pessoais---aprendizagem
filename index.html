@@ -6,10 +6,10 @@
 		<link rel="stylesheet" href="Normalize.css" />
 		<link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="style.css" />
-		<script src="bootstrap-5.3.3-dist/js/pooper.min.js"></script>
-		<script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
-		<script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 
+		<!--script bootstrap-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 		<!-- Font Awesome -->
 		<link
 			rel="stylesheet"
@@ -140,12 +140,35 @@
 					</div>
 				</div>
 			</div>
+			<div class="text-light d-none justify-content-center mt-2 py-3 msg-sucesso-texto-tamanho fw-bold" id="msg-escondida"></div>
+
+			<!--caixa de dialogo modal, parece um alert-->
+			<div class="modal fade" id="msg-erro-modal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Erro ao salvar despesa</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+						</div>
+
+						<div class="modal-body">
+							<p>Estes campos devem ser preenchidos</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Voltar e corrigir</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 		<footer>
 			<div class="rodape d-flex justify-content-center align-items-center bg-primary">
-				<a class="nav-link text-light" href="https://github.com/kelmy0">&copy;Kelmy <i class="fa-brands fa-github"></i></a>
+				<a class="nav-link text-light link-light" href="https://github.com/kelmy0"
+					>&copy;Kelmy0 <i class="fa-brands fa-github"></i
+				></a>
 			</div>
 		</footer>
+
 		<script src="script.js"></script>
 	</body>
 </html>

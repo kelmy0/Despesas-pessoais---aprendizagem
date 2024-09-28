@@ -17,6 +17,10 @@
 	}
 }
 
+select:hover {
+	cursor: pointer;
+}
+
 .link-light-animation {
 	color: white;
 	border: 1px solid white;
@@ -33,6 +37,10 @@
 	border-radius: 5px;
 	padding: 0.5em;
 	text-align: center;
+}
+
+.link-light:hover {
+	text-decoration: underline;
 }
 
 .input-vazio {
@@ -70,4 +78,8 @@
 
 .input-vazio::-ms-input-placeholder {
 	color: #fff;
+}
+
+.msg-sucesso-texto-tamanho {
+	font-size: 1.2em;
 }
