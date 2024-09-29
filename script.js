@@ -1,5 +1,5 @@
 //cria os anos automaticamente e poe o ano, mes e dia automaticamente
-function criarListaAno() {
+function criarListaAno(setar) {
 	let ano = document.getElementById("ano")
 	let fim = new Date().getFullYear()
 	let option = document.createElement("option")
@@ -15,25 +15,23 @@ function criarListaAno() {
 			let option = document.createElement("option")
 			option.value = c
 			option.text = c
-			if (c == fim) {
+			if (c == fim && setar === true) {
 				option.setAttribute("selected", "")
 				document.getElementById("ano").classList.remove("input-vazio")
+
+				//botar o dia e o mes automaticamente
+				let mes = new Date().getMonth() + 1
+				let dia = new Date().getDate()
+
+				document.getElementById("mes").value = mes
+				document.getElementById("dia").value = dia
+				document.getElementById("mes").classList.remove("input-vazio")
+				document.getElementById("dia").classList.remove("input-vazio")
 			}
 			ano.appendChild(option)
 		}
-
-		//botar o dia e o mes automaticamente
-		let mes = new Date().getMonth() + 1
-		let dia = new Date().getDate()
-
-		document.getElementById("mes").value = mes
-		document.getElementById("dia").value = dia
-		document.getElementById("mes").classList.remove("input-vazio")
-		document.getElementById("dia").classList.remove("input-vazio")
 	}, 1500)
 }
-
-criarListaAno()
 
 //gravar despesa
 class Despesa {
@@ -58,8 +56,38 @@ class Despesa {
 
 class Bd {
 	gravarDespesa(literalObject) {
-		let quantItemLocalStorage = localStorage.length
-		localStorage.setItem(quantItemLocalStorage + 1, JSON.stringify(literalObject))
+		let tamanho = localStorage.length
+
+		for (let i = 1; i <= tamanho; i++) {
+			if (localStorage.getItem(i) === null) {
+				tamanho++
+			}
+		}
+
+		localStorage.setItem(tamanho + 1, JSON.stringify(literalObject))
+	}
+
+	recuperarRegistros() {
+		//array despesas
+		let despesas = Array()
+
+		let tamanho = localStorage.length
+
+		for (let c = 1; c <= tamanho; c++) {
+			let item = JSON.parse(localStorage.getItem(c))
+
+			if (localStorage.getItem(c) != null) {
+				despesas.push(item)
+				continue
+			}
+			tamanho++
+		}
+
+		return despesas
+	}
+
+	pesquisar(despesa) {
+		console.log(despesa)
 	}
 }
 
@@ -127,6 +155,7 @@ function cadastrarDespesa() {
 	}
 }
 
+//exibir msg
 let time = null
 function exibirMsgEscondida(elementId, classe, texto) {
 	document.getElementById(elementId).classList.add(classe)
@@ -180,4 +209,77 @@ function fadeOut(elementId, removeClass) {
 
 		opacidade -= 0.1
 	}, 32)
+}
+
+//carregar lista despesas
+function carregarListaDespesas() {
+	let despesas = Array()
+	despesas = bd.recuperarRegistros()
+
+	let listaDespesasTable = document.getElementById("listaDespesasTable")
+
+	//pecorrer depesaslistando tudo
+	despesas.forEach(despesa => {
+		//criando linha <tr>
+		let linha = listaDespesasTable.insertRow()
+
+		//inserir valores na linha (colunas) <td>
+		linha.insertCell(0).innerHTML = `${despesa.dia}/${despesa.mes}/${despesa.ano}`
+
+		switch (parseInt(despesa.tipo)) {
+			case 1:
+				linha.insertCell(1).innerHTML = "Alimentação"
+				break
+
+			case 2:
+				linha.insertCell(1).innerHTML = "Educação"
+				break
+
+			case 3:
+				linha.insertCell(1).innerHTML = "Lazer"
+				break
+
+			case 4:
+				linha.insertCell(1).innerHTML = "Saúde"
+				break
+
+			case 5:
+				linha.insertCell(1).innerHTML = "Transporte"
+				break
+
+			default:
+				linha.insertCell(1).innerHTML = "Outro"
+				break
+		}
+
+		linha.insertCell(2).innerHTML = despesa.descricao
+		linha.insertCell(3).innerHTML = `R$${despesa.valor}`
+	})
+
+	if (despesas.length > 1) {
+		document.getElementById("rodape").style.top = `${pegarAltura()}px`
+	}
+}
+
+function pegarAltura() {
+	let altura = document.documentElement.scrollHeight
+	return altura
+}
+
+function pesquisarDespesa() {
+	let ano = document.getElementById("ano").value
+	let mes = document.getElementById("mes").value
+	let dia = document.getElementById("dia").value
+	let tipo = document.getElementById("tipo").value
+	let descricao = document.getElementById("descricao").value
+	let valor = document.getElementById("valor").value
+
+	let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
+
+	bd.pesquisar(despesa)
+}
+
+function excluirTudo() {
+	localStorage.clear()
+	location.reload()
 }
