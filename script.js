@@ -350,13 +350,16 @@ function excluirTudo() {
 function excluirSelecionado(elemento) {}
 
 function posicionarFooter() {
+	let alturaJanela = window.innerHeight
 	let alturaRodape = document.getElementById("rodape").clientHeight
-	if (window.innerHeight < pegarAltura() + alturaRodape) {
-		document.getElementById("rodape").classList.remove("rodape")
-		document.getElementById("rodape").classList.add("rodape1")
-		console.log("janela menor")
-	} else {
+	console.log(window.innerHeight, pegarAltura() - alturaRodape)
+	if (alturaJanela < pegarAltura()) {
 		document.getElementById("rodape").classList.remove("rodape1")
 		document.getElementById("rodape").classList.add("rodape")
+		console.log("janela menor")
+	} else {
+		document.getElementById("rodape").classList.remove("rodape")
+		document.getElementById("rodape").classList.add("rodape1")
 	}
 }
+posicionarFooter()
