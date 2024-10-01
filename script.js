@@ -305,6 +305,7 @@ function carregarListaDespesas(despesas = Array(), filtro = false) {
 		}
 	})
 
+	/*
 	if (despesas.length > 1 && !filtro) {
 		document.getElementById("rodape").classList.remove("rodape")
 		document.getElementById("rodape").classList.add("rodape1")
@@ -317,7 +318,9 @@ function carregarListaDespesas(despesas = Array(), filtro = false) {
 	} else {
 		document.getElementById("rodape").classList.remove("rodape1")
 		document.getElementById("rodape").classList.add("rodape")
-	}
+	}*/
+
+	posicionarFooter()
 }
 
 function pegarAltura() {
@@ -345,3 +348,15 @@ function excluirTudo() {
 }
 
 function excluirSelecionado(elemento) {}
+
+function posicionarFooter() {
+	let alturaRodape = document.getElementById("rodape").clientHeight
+	if (window.innerHeight < pegarAltura() + alturaRodape) {
+		document.getElementById("rodape").classList.remove("rodape")
+		document.getElementById("rodape").classList.add("rodape1")
+		console.log("janela menor")
+	} else {
+		document.getElementById("rodape").classList.remove("rodape1")
+		document.getElementById("rodape").classList.add("rodape")
+	}
+}

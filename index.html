@@ -26,7 +26,7 @@
 		<link rel="shortcut icon" href="images/logo.png" />
 		<title>Orçamento pessoal</title>
 	</head>
-	<body onload="criarListaAno(true)">
+	<body onload="criarListaAno(true), posicionarFooter()">
 		<header>
 			<!--off canvas navbar responsive-->
 			<nav class="navbar bg-primary navbar-expand-md px-md-5 mb-5 navbar-dark">
@@ -164,7 +164,7 @@
 			</div>
 		</section>
 		<footer>
-			<div class="rodape d-flex justify-content-center align-items-center bg-primary">
+			<div class="rodape d-flex justify-content-center align-items-center bg-primary" id="rodape">
 				<a class="nav-link text-light link-light" href="https://github.com/kelmy0"
 					>&copy;Kelmy0 <i class="fa-brands fa-github"></i
 				></a>
