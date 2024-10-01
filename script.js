@@ -2,13 +2,6 @@
 function criarListaAno(setar) {
 	let ano = document.getElementById("ano")
 	let fim = new Date().getFullYear()
-	let option = document.createElement("option")
-
-	option.value = ""
-	option.text = "Ano"
-	option.setAttribute("disabled", "")
-	option.setAttribute("selected", "")
-	ano.appendChild(option)
 
 	setTimeout(() => {
 		for (let c = 2010; c < fim + 10; c++) {
@@ -77,6 +70,7 @@ class Bd {
 			let item = JSON.parse(localStorage.getItem(c))
 
 			if (localStorage.getItem(c) != null) {
+				item.id = c
 				despesas.push(item)
 				continue
 			}
@@ -86,8 +80,39 @@ class Bd {
 		return despesas
 	}
 
-	pesquisar(despesa) {
-		console.log(despesa)
+	pesquisar(despesas) {
+		let despesasFiltradas = this.recuperarRegistros()
+		//ano
+		if (despesas.ano != "") {
+			despesasFiltradas = despesasFiltradas.filter(d => d.ano == despesas.ano)
+		}
+		//mes
+		if (despesas.mes != "") {
+			despesasFiltradas = despesasFiltradas.filter(d => d.mes == despesas.mes)
+		}
+
+		//dia
+		if (despesas.dia != "") {
+			despesasFiltradas = despesasFiltradas.filter(d => d.dia == despesas.dia)
+		}
+
+		if (despesas.tipo != "") {
+			despesasFiltradas = despesasFiltradas.filter(d => d.tipo == despesas.tipo)
+		}
+
+		if (despesas.descricao != "") {
+			despesasFiltradas = despesasFiltradas.filter(d => d.descricao == despesas.descricao)
+		}
+
+		if (despesas.valor != "") {
+			despesasFiltradas = despesasFiltradas.filter(d => d.valor == despesas.valor)
+		}
+
+		return despesasFiltradas
+	}
+
+	remover(id) {
+		localStorage.removeItem(id)
 	}
 }
 
@@ -212,11 +237,13 @@ function fadeOut(elementId, removeClass) {
 }
 
 //carregar lista despesas
-function carregarListaDespesas() {
-	let despesas = Array()
-	despesas = bd.recuperarRegistros()
+function carregarListaDespesas(despesas = Array(), filtro = false) {
+	if (despesas.length == 0 && !filtro) {
+		despesas = bd.recuperarRegistros()
+	}
 
 	let listaDespesasTable = document.getElementById("listaDespesasTable")
+	listaDespesasTable.innerHTML = ""
 
 	//pecorrer depesaslistando tudo
 	despesas.forEach(despesa => {
@@ -254,10 +281,42 @@ function carregarListaDespesas() {
 
 		linha.insertCell(2).innerHTML = despesa.descricao
 		linha.insertCell(3).innerHTML = `R$${despesa.valor}`
+
+		//criar botao exclusao
+		let btn = document.createElement("button")
+		btn.classList = "btn btn-danger w-100"
+		btn.onclick = () => {
+			let id = parseInt(btn.id.slice(-1))
+			bd.remover(id)
+
+			carregarListaDespesas([], false)
+		}
+		btn.id = "id_despesa_" + despesa.id
+		let icon = document.createElement("i")
+		icon.classList = "fa-solid fa-trash"
+		icon.tittle = "excluir esta despesa"
+		btn.appendChild(icon)
+
+		if (window.innerWidth > 410) {
+			linha.insertCell(4).appendChild(btn)
+		} else {
+			let linhaExclusao = listaDespesasTable.insertRow()
+			linhaExclusao.insertCell(0).appendChild(btn)
+		}
 	})
 
-	if (despesas.length > 1) {
-		document.getElementById("rodape").style.top = `${pegarAltura()}px`
+	if (despesas.length > 1 && !filtro) {
+		document.getElementById("rodape").classList.remove("rodape")
+		document.getElementById("rodape").classList.add("rodape1")
+	} else if (despesas.length > 1 && filtro) {
+		document.getElementById("rodape").classList.remove("rodape")
+		document.getElementById("rodape").classList.add("rodape1")
+	} else if (despesas.length <= 1 && filtro) {
+		document.getElementById("rodape").classList.remove("rodape1")
+		document.getElementById("rodape").classList.add("rodape")
+	} else {
+		document.getElementById("rodape").classList.remove("rodape1")
+		document.getElementById("rodape").classList.add("rodape")
 	}
 }
 
@@ -276,10 +335,13 @@ function pesquisarDespesa() {
 
 	let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
 
-	bd.pesquisar(despesa)
+	let listaDespesasFiltradas = bd.pesquisar(despesa)
+	carregarListaDespesas(listaDespesasFiltradas, true)
 }
 
 function excluirTudo() {
 	localStorage.clear()
 	location.reload()
 }
+
+function excluirSelecionado(elemento) {}
