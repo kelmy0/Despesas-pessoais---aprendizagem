@@ -351,12 +351,14 @@ function excluirSelecionado(elemento) {}
 
 function posicionarFooter() {
 	let alturaJanela = window.innerHeight
-	let alturaRodape = document.getElementById("rodape").clientHeight
-	console.log(window.innerHeight, pegarAltura() - alturaRodape)
-	if (alturaJanela < pegarAltura()) {
+	let elementoAnterior = document.getElementsByTagName("section")
+	let alturaElementoAnterior = elementoAnterior[0].clientHeight
+	let posTopElementoAnterior = elementoAnterior[0].getBoundingClientRect().top
+	let bottomElementoAnterior = posTopElementoAnterior + alturaElementoAnterior
+	let topoRodape = document.getElementById("rodape").getBoundingClientRect().top
+	if (alturaJanela < pegarAltura() || topoRodape <= bottomElementoAnterior + 10) {
 		document.getElementById("rodape").classList.remove("rodape1")
 		document.getElementById("rodape").classList.add("rodape")
-		console.log("janela menor")
 	} else {
 		document.getElementById("rodape").classList.remove("rodape")
 		document.getElementById("rodape").classList.add("rodape1")
