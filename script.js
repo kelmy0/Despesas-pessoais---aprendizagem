@@ -80,7 +80,7 @@ class Bd {
 		return despesas
 	}
 
-	pesquisar(despesas) {
+	pesquisar(despesas, filtrar = false) {
 		let despesasFiltradas = this.recuperarRegistros()
 		//ano
 		if (despesas.ano != "") {
@@ -286,7 +286,7 @@ function carregarListaDespesas(despesas = Array(), filtro = false) {
 		let btn = document.createElement("button")
 		btn.classList = "btn btn-danger w-100"
 		btn.onclick = () => {
-			let id = parseInt(btn.id.slice(-1))
+			let id = parseInt(btn.id.replace("id_despesa_", ""))
 			bd.remover(id)
 
 			carregarListaDespesas([], false)
@@ -304,21 +304,6 @@ function carregarListaDespesas(despesas = Array(), filtro = false) {
 			linhaExclusao.insertCell(0).appendChild(btn)
 		}
 	})
-
-	/*
-	if (despesas.length > 1 && !filtro) {
-		document.getElementById("rodape").classList.remove("rodape")
-		document.getElementById("rodape").classList.add("rodape1")
-	} else if (despesas.length > 1 && filtro) {
-		document.getElementById("rodape").classList.remove("rodape")
-		document.getElementById("rodape").classList.add("rodape1")
-	} else if (despesas.length <= 1 && filtro) {
-		document.getElementById("rodape").classList.remove("rodape1")
-		document.getElementById("rodape").classList.add("rodape")
-	} else {
-		document.getElementById("rodape").classList.remove("rodape1")
-		document.getElementById("rodape").classList.add("rodape")
-	}*/
 
 	posicionarFooter()
 }
@@ -338,7 +323,8 @@ function pesquisarDespesa() {
 
 	let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
 
-	let listaDespesasFiltradas = bd.pesquisar(despesa)
+	let listaDespesasFiltradas = bd.pesquisar(despesa, filtrar)
+
 	carregarListaDespesas(listaDespesasFiltradas, true)
 }
 
@@ -346,8 +332,6 @@ function excluirTudo() {
 	localStorage.clear()
 	location.reload()
 }
-
-function excluirSelecionado(elemento) {}
 
 function posicionarFooter() {
 	let alturaJanela = window.innerHeight
@@ -365,3 +349,22 @@ function posicionarFooter() {
 	}
 }
 posicionarFooter()
+
+function carregarTotalDespesas() {
+	let listaDespesasTable = document.getElementById("listaDespesasTable")
+	listaDespesasTable.innerHTML = ""
+	despesas = bd.recuperarRegistros()
+
+	let linha = listaDespesasTable.insertRow()
+	linha.insertCell(0).innerHTML = `Todos`
+	linha.insertCell(1).innerHTML = `Todos`
+	linha.insertCell(2).innerHTML = `Todos`
+
+	let valor = 0
+
+	despesas.forEach(d => {
+		valor += parseFloat(d.valor)
+	})
+
+	linha.insertCell(3).innerHTML = `R$${valor}`
+}
